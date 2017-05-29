@@ -1,0 +1,35 @@
+\documentclass[a4paper]{article}
+
+\usepackage{fullpage} % Package to use full page
+\usepackage{parskip} % Package to tweak paragraph skipping
+\usepackage{tikz} % Package for drawing
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\renewcommand\thesubsection{\thesection.\alph{subsection}}
+
+
+
+\title{An Exploration of Twitter Feed Sentiment Analysis Methods}
+\author{Christian Gao}
+\date{2017/05/27}
+
+\begin{document}
+\SweaveOpts{concordance=TRUE}
+
+\maketitle
+
+\section{Introduction}
+
+\section{Logistic Regression Modeling}
+
+\section{GBM Modeling}
+
+\section{Random Forest Modeling}
+
+
+
+<<fig = TRUE , echo = FALSE,height=4,width=6,print=FALSE>>=
+@
+
+\end{document}
