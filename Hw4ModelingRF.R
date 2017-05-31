@@ -28,11 +28,23 @@ h2o.hit_ratio_table(rf_base,valid = T)[1,2]             ## validation set accura
 mean(rf_pred_base$predict==test$Cover_Type)
 
 ###Increase Tree Depth###
+system.time({
+  rf3<-h2o.randomForest(training_frame = train, validation_frame = valid, y="Sentiment",seed=12345,ntrees=50,max_depth = 50
+                        ,stopping_rounds = 10,stopping_metric="AUC",stopping_tolerance=.)
+})
+h2o.auc(h2o.performance(rf3, newdata = valid)) 
+#
+
+rf_pred_3<-h2o.predict(object = rf3, newdata = test)
+rf_pred_3
+
+h2o.hit_ratio_table(rf3,valid = T)[1,2]             ## validation set accuracy
+mean(rf_pred_3$predict==test$Cover_Type)
 
 ###Increase Trees with stopping###
 system.time({
 rf3<-h2o.randomForest(training_frame = train, validation_frame = valid, y="Sentiment",seed=12345,ntrees=400
-                      ,stopping_rounds = 10,stopping_metric="AUC",stopping_tolerance=.)
+                      ,stopping_rounds = 10,stopping_metric="AUC",stopping_tolerance=.01)
 })
 h2o.auc(h2o.performance(rf3, newdata = valid)) 
 #
@@ -67,6 +79,7 @@ system.time({
 })
 
 h2o.auc(h2o.performance(rf5, newdata = test)) 
+plot(h2o.performance(rf5, newdata = test),col = "purple",main ="True Positive vs False Positive RF")
 #0.7746153
 
 #user  system elapsed 
