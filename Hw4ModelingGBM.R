@@ -27,6 +27,7 @@ valid <- h2o.assign(splits[[2]], "valid.hex")
 gbm_base<-h2o.gbm(y = "Sentiment", training_frame = train)
 gbm_base
 h2o.auc(h2o.performance(gbm_base, newdata = valid)) 
+#
 
 #Increase Tress
 gbm_1 <- h2o.gbm(y = "Sentiment", training_frame = train, distribution = "bernoulli", 
@@ -61,12 +62,13 @@ splits_2 <- h2o.splitFrame(
 train_2 <- h2o.assign(splits_2[[1]], "train.hex")   
 valid_2 <- h2o.assign(splits_2[[2]], "valid.hex")
 
-gbm_4 <- h2o.gbm(y = "Sentiment", training_frame = train_2, distribution = "bernoulli", 
+system.time({gbm_4 <- h2o.gbm(y = "Sentiment", training_frame = train_2, distribution = "bernoulli", 
                  ntrees = 400, max_depth = 10, learn_rate = 0.02, 
                  nbins = 30, seed = 123,
-                 stopping_rounds=5, stopping_tolerance=0.005,stopping_metric="AUC")
+                 stopping_rounds=5, stopping_tolerance=0.005,stopping_metric="AUC")})
 gbm_4
 h2o.auc(h2o.performance(gbm_4, newdata = valid_2))
+plot(h2o.performance(gbm_4, newdata = valid_2),col = "blue",main = "True Positives vs False Positives GBM")
 #0.7833309
 
 ###############
